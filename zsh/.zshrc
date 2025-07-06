@@ -13,10 +13,16 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Auto-install missing dev tools (like lazygit) if needed
+# Auto-install lazygit if missing
 if ! command -v lazygit >/dev/null 2>&1
 then
-  bash scripts/first-run-install.sh
+  bash scripts/install-LazyGit.sh
+fi
+
+# Auto-install tmux if missing
+if ! command -v tmux >/dev/null 2>&1
+then
+  bash scripts/install-tmux.sh
 fi
 
 # Download Zinit, if it's not there yet

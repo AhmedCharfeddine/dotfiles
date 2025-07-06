@@ -415,6 +415,17 @@ require('lazy').setup({
         --   },
         -- },
         -- pickers = {}
+        defaults = {
+          file_ignore_patterns = {
+            'node_modules',
+            '.git/',
+            'target',
+            'build',
+            '%.o',
+            '%.class',
+            '__pycache__',
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -680,7 +691,13 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
-        pyright = {},
+        jdtls = {}, -- Java
+        -- groovyls = {}, -- Groovy (less maintained, but usable)
+        pyright = {}, -- Python
+        -- tsserver = {}, -- TypeScript & JavaScript
+        html = {}, -- HTML
+        dockerls = {}, -- Dockerfiles
+        yamlls = {}, -- YAML
         -- TODO see how to work with this: jdtls = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -977,7 +994,29 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'java',
+        'groovy',
+        'python',
+        'typescript',
+        'javascript',
+        'html',
+        'dockerfile',
+        'yaml',
+        'json',
+        'xml',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -996,10 +1035,6 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-
-  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
 
   -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
   --
