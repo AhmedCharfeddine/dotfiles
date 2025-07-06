@@ -5,11 +5,17 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
+# Add to PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Auto-install missing dev tools (like lazygit) if needed
-if ! command -v lazygit >/dev/null 2>&1; then
+if ! command -v lazygit >/dev/null 2>&1
+then
   bash scripts/first-run-install.sh
 fi
 
@@ -88,13 +94,7 @@ alias ws='webshop'
 #eval "$(fzf)"
 eval "$(zoxide init --cmd cd zsh)"
 
-# changes to PATH
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
 [[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"

@@ -43,13 +43,6 @@ if curl -LO "$URL"; then
   mv lazygit "$HOME/.local/bin/"
   chmod +x "$HOME/.local/bin/lazygit"
   echo "✅ Installed lazygit to ~/.local/bin"
-
-  # Add to PATH if needed
-  if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-    export PATH="$HOME/.local/bin:$PATH"
-    echo "📎 Added ~/.local/bin to PATH"
-  fi
 else
   echo "❌ Failed to download $FILENAME"
   exit 1
