@@ -11,6 +11,7 @@ fzf 0.48.0 or later
 nvim
 zoxide
 neovim
+emacs (for tmux keybinds)
 ```
 > For Neovim, it's better to get the latest pre-built binary from [the official repo](https://github.com/neovim/neovim/blob/master/INSTALL.md#pre-built-archives-2).
 #### Optional
