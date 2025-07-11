@@ -195,6 +195,12 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- Remap pasting keys
+vim.keymap.set('n', 'p', 'P', { desc = 'Paste before the cursor' })
+
+-- Remap Y to y$
+vim.keymap.set('n', 'Y', 'y$', { desc = 'Yank and go to end of line' })
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -350,10 +356,11 @@ require('lazy').setup({
       -- Document existing key chains
       spec = {
         { '<leader>e', group = 'File [E]xplorer' },
-        { '<leader>g', group = '[G]it Integration (lazygit)' },
+        { '<leader>g', group = 'Git Integration (Lazy[G]it)' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
+        { '<leader>a', group = '[AI] Copilot' },
       },
     },
   },
