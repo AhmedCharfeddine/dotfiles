@@ -94,9 +94,9 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
 -- Set default tab to 4 spaces
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
--- vim.opt.expandtab
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -200,6 +200,10 @@ vim.keymap.set('n', 'p', 'P', { desc = 'Paste before the cursor' })
 
 -- Remap Y to y$
 vim.keymap.set('n', 'Y', 'y$', { desc = 'Yank and go to end of line' })
+
+-- Reselect after indenting/unindenting
+vim.keymap.set('v', '<', '<gv', { desc = 'Unindent and reselect' })
+vim.keymap.set('v', '>', '>gv', { desc = 'Indent and reselect' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -872,7 +876,11 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'super-tab',
+        ['<C-space>'] = false,
+        ['<C-s>'] = { 'show', 'show_signature', 'hide_signature' },
+        ['<C-k>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-e>'] = { 'hide', 'show' },
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -1089,6 +1097,13 @@ require('lazy').setup({
     },
   },
 })
+
+-- Set color scheme for the nvim Command line
+local cmdline_color = '#292d3e'
+local cmdline_color_darker = '#282C34'
+vim.api.nvim_set_hl(0, 'MsgArea', { bg = cmdline_color })
+vim.api.nvim_set_hl(0, 'CmdlinePopup', { bg = cmdline_color })
+vim.api.nvim_set_hl(0, 'CmdlinePopupBorder', { bg = cmdline_color_darker })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

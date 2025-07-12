@@ -43,8 +43,8 @@ return {
       mappings = {
         -- Use tab for completion
         complete = {
-          detail = 'Use @<Tab> or /<Tab> for options.',
-          insert = '<Tab>',
+          detail = 'Use Ctrl-y or /<Tab> for options.',
+          insert = '<C-y>',
         },
         -- Close the chat
         close = {

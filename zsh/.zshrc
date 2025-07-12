@@ -110,6 +110,14 @@ alias ws='webshop'
 #eval "$(fzf)"
 eval "$(zoxide init --cmd cd zsh)"
 
+# run fzf for reverse search. needs to test what version is installed first
+fzf_version=$(fzf --version | awk '{print $1}')
+if [ "$(printf '%s\n' "$fzf_version" "0.48.0" | sort -V | head -n1)" = "0.48.0" ]; then
+  eval "$(fzf --zsh)"
+else
+  eval "$(fzf)"
+fi
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
