@@ -46,7 +46,7 @@ install_stow() {
 # ⛓️ Stow all configs
 stow_configs() {
   echo "🔗 Stowing dotfiles..."
-  CONFIGS=("zsh" "neovim")
+  CONFIGS=("zsh" "neovim" "tmux" "kitty")
 
   for config in "${CONFIGS[@]}"; do
     if [ -d "$config" ]; then

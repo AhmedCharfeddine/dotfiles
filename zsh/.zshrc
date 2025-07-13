@@ -30,10 +30,6 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
 fi
 
 # Set emacs mode. Needed for tmux prefix
-if ! command -v tmux >/dev/null 2>&1
-then
-  bash scripts/install-tmux.sh
-fi
 
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
@@ -114,11 +110,8 @@ eval "$(zoxide init --cmd cd zsh)"
 fzf_version=$(fzf --version | awk '{print $1}')
 if [ "$(printf '%s\n' "$fzf_version" "0.48.0" | sort -V | head -n1)" = "0.48.0" ]; then
   eval "$(fzf --zsh)"
-else
-  eval "$(fzf)"
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
 [[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
