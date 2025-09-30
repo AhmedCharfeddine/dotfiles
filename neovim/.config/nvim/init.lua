@@ -105,8 +105,6 @@ vim.opt.expandtab = true
 
 -- Make line numbers default
 vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
 vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
@@ -360,7 +358,7 @@ require('lazy').setup({
       -- Document existing key chains
       spec = {
         { '<leader>e', group = 'File [E]xplorer' },
-        { '<leader>g', group = 'Git Integration (Lazy[G]it)' },
+        { '<leader>lg', group = 'Git Integration ([L]azy[G]it)' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
@@ -709,7 +707,7 @@ require('lazy').setup({
         -- gopls = {},
         jdtls = {}, -- Java
         -- groovyls = {}, -- Groovy (less maintained, but usable)
-        -- pyright = {}, -- Python
+        pyright = {}, -- Python
         -- tsserver = {}, -- TypeScript & JavaScript
         -- html = {}, -- HTML
         -- dockerls = {}, -- Dockerfiles
@@ -932,6 +930,14 @@ require('lazy').setup({
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
         transparent = true,
+        on_highlights = function(hl)
+          hl.LineNrAbove = {
+            fg = '#b2b8cf',
+          }
+          hl.LineNrBelow = {
+            fg = '#b2b8cf',
+          }
+        end,
         styles = {
           sidebars = 'transparent',
           floats = 'transparent',
