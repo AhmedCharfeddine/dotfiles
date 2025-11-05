@@ -315,6 +315,7 @@ require('lazy').setup({
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
+      preset = 'helix',
       -- delay between pressing a key and opening which-key (milliseconds)
       -- this setting is independent of vim.o.timeoutlen
       delay = 250,
@@ -366,13 +367,6 @@ require('lazy').setup({
       },
     },
   },
-
-  -- NOTE: Plugins can specify dependencies.
-  --
-  -- The dependencies are proper plugin specifications as well - anything
-  -- you do for a plugin at the top level, you can do for a dependency.
-  --
-  -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
@@ -1105,11 +1099,11 @@ require('lazy').setup({
 })
 
 -- Set color scheme for the nvim Command line
-local cmdline_color = '#292d3e'
-local cmdline_color_darker = '#282C34'
-vim.api.nvim_set_hl(0, 'MsgArea', { bg = cmdline_color })
-vim.api.nvim_set_hl(0, 'CmdlinePopup', { bg = cmdline_color })
-vim.api.nvim_set_hl(0, 'CmdlinePopupBorder', { bg = cmdline_color_darker })
+-- local cmdline_color = '#292d3e'
+-- local cmdline_color_darker = '#282C34'
+-- vim.api.nvim_set_hl(0, 'MsgArea', { bg = cmdline_color })
+-- vim.api.nvim_set_hl(0, 'CmdlinePopup', { bg = cmdline_color })
+-- vim.api.nvim_set_hl(0, 'CmdlinePopupBorder', { bg = cmdline_color_darker })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
