@@ -700,7 +700,7 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         jdtls = {}, -- Java
-        -- groovyls = {}, -- Groovy (less maintained, but usable)
+        groovyls = {}, -- Groovy (less maintained, but usable)
         pyright = {}, -- Python
         -- tsserver = {}, -- TypeScript & JavaScript
         -- html = {}, -- HTML
@@ -749,6 +749,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'npm-groovy-lint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -794,13 +795,14 @@ require('lazy').setup({
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 9000,
             lsp_format = 'fallback',
           }
         end
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        groovy = { 'npm-groovy-lint' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1044,6 +1046,7 @@ require('lazy').setup({
       auto_install = true,
       highlight = {
         enable = true,
+        disable = { 'csv' }, -- I find native nvim CSV highlighting to be better
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.

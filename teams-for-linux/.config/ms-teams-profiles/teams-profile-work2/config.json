@@ -1,0 +1,8 @@
+{
+  "appTitle": "Teams - Work 2",
+  "appIconType": "light",
+  "disableNotificationSound": false,
+  "customCSSName": "compactLight",
+  "closeAppOnCross": false,
+  "disableNotificationSoundIfNotAvailable": true
+}

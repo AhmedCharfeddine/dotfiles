@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Microsoft Teams 1
+Exec=/usr/bin/teams-for-linux --class="Microsoft Teams Decade" --user-data-dir=/home/ahmed/.config/ms-teams-profiles/teams-profile-work1 --appIcon=/home/ahmed/.config/ms-teams-profiles/teams-profile-work1/icon.png
+Terminal=false
+Type=Application
+Icon=/home/ahmed/.config/ms-teams-profiles/teams-profile-work1/icon.png
+StartupWMClass=Microsoft Teams Decade
+Comment=Unofficial Microsoft Teams client for Linux using Electron. Profile for work 1
+MimeType=x-scheme-handler/msteams;
+Categories=Chat;Network;Office;InstantMessaging;
+
