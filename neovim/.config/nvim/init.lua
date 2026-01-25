@@ -107,15 +107,13 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
--- Remap pasting keys
-vim.keymap.set('n', 'p', 'P', { desc = 'Paste before the cursor' })
-
--- Remap Y to y$
-vim.keymap.set('n', 'Y', 'y$', { desc = 'Yank and go to end of line' })
-
 -- Reselect after indenting/unindenting
 vim.keymap.set('v', '<', '<gv', { desc = 'Unindent and reselect' })
 vim.keymap.set('v', '>', '>gv', { desc = 'Indent and reselect' })
+
+-- center after scroll up/down
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll down and center' })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll up and center' })
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -276,6 +274,7 @@ require('lazy').setup({
         { '<leader>lg', group = 'Git Integration ([L]azy[G]it)' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>s', group = '[S]earch' },
+        { '<leader>u', group = '[U]ndo tree' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>a', group = '[AI] Copilot' },
       },
@@ -871,13 +870,10 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    This is the easiest way to modularize your config.
-  --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   { import = 'custom.plugins' },
 }, {
