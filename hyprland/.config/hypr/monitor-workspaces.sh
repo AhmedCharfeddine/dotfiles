@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm workspaces.conf
+
 # Detect monitors
 monitors=$(hyprctl monitors -j | jq -r '.[].name' | sort)
 # desc of laptop monitor
@@ -10,16 +12,23 @@ external=$(echo "$monitors" | grep -v "$laptop" || echo "")
 
 if [ -z "$external" ]; then
   # Only laptop: all workspaces on laptop
-  hyprctl keyword workspace 1,monitor:$laptop
-  for i in {1..9}; do
-    hyprctl keyword workspace $i,monitor:$laptop
-  done
+  # hyprctl keyword workspace 1,monitor:$laptop
+  # for i in {1..9}; do
+  #   hyprctl keyword workspace $i,monitor:$laptop
+  # done
+  echo "workspace=r[1-10], m[$laptop], default:true, persistent:true" >> workspaces.conf
 else
   # Dual monitor: laptop → workspace 10, external → workspaces 1-9
-  hyprctl keyword workspace 10,monitor:$laptop,default:true
-  for i in {1..9}; do
-    hyprctl keyword workspace $i,monitor:$external
+  # hyprctl keyword workspace 10,monitor:$laptop,default:true
+  # for i in {1..9}; do
+  #   hyprctl keyword workspace $i,monitor:$external
+  # done
+  for i in {1..9}; do 
+    echo "workspace=$i, m[$external], persistent:true" >> workspaces.conf
   done
+  echo "workspace=10, m[$laptop], persistent:true, default:true" >> workspaces.conf
+
+
   # this fixes bug with waybar where it shows 9 instances on external monitor
   # when plugging a second monitor
   # TODO: find a better fix
