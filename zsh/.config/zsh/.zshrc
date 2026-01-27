@@ -14,20 +14,6 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Auto-install lazygit if missing
-if ! command -v lazygit >/dev/null 2>&1
-then
-  bash scripts/install-LazyGit.sh
-fi
-
-# Auto-install tmux if missing
-if ! command -v tmux >/dev/null 2>&1
-then
-  bash scripts/install-tmux.sh
-fi
-
-# Set emacs mode. Needed for tmux prefix
-
 # Download Zinit, if it's not there yet
 if [ ! -d "$ZINIT_HOME" ]; then
    mkdir -p "$(dirname $ZINIT_HOME)"
@@ -59,12 +45,13 @@ zinit light Aloxaf/fzf-tab
 # Autosuggestion colors
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=244"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# To customize prompt, run `p10k configure` or edit $ZDOTDIR/.p10k.zsh
+[[ ! -f $ZDOTDIR/.p10k.zsh ]] || source $ZDOTDIR/.p10k.zsh
 
 # History
 HISTSIZE=5000
-HISTFILE=~/.zsh_history
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
+[[ -d "${HISTFILE:h}" ]] || mkdir -p "${HISTFILE:h}"
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt appendhistory
@@ -112,9 +99,6 @@ if [ "$(printf '%s\n' "$fzf_version" "0.48.0" | sort -V | head -n1)" = "0.48.0" 
   eval "$(fzf --zsh)"
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
-
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
-[[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

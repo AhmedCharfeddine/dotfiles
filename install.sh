@@ -1,65 +1,129 @@
 #!/bin/bash
+# Dotfiles Installer for Fedora
 
-set -e  # Exit on any error
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/RobotoMono.zip"
+NVIM_URL="https://github.com/neovim/neovim/releases/download/v0.10.3/nvim-linux-x86_64.tar.gz"
 
-install_stow() {
-  echo "📦 Installing GNU Stow & zsh..."
-  # Install via common package managers
-  if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    if command -v apt >/dev/null 2>&1; then
-      sudo apt update && sudo apt install -y stow zsh
-    elif command -v pacman >/dev/null 2>&1; then
-      sudo pacman -S --noconfirm stow zsh
-    elif command -v dnf >/dev/null 2>&1; then
-      sudo dnf install -y stow zsh
-    elif command -v zypper >/dev/null 2>&1; then
-      sudo zypper install -y stow zsh
-    else
-      echo "❌ No supported Linux package manager found. Falling back to manual install..."
-    fi
-  elif [[ "$OSTYPE_DETECTED" == "darwin" ]]; then
-    if command -v brew >/dev/null 2>&1; then
-      brew install stow
-      brew install zsh
-    else
-      echo "❌ Homebrew not found. Install Homebrew or install stow manually."
-      exit 1
-    fi
-  else
-    echo "❌ Unsupported OS: $OSTYPE_DETECTED"
-    exit 1
-  fi
+install_core_deps() {
+    echo "Installing core dependencies..."
+    sudo dnf install -y git stow zsh fzf zoxide fd-find ripgrep curl tar unzip
 }
 
-# ⛓️ Stow all configs
-stow_configs() {
-  echo "🔗 Stowing dotfiles..."
-  CONFIGS=("zsh" "neovim" "tmux" "kitty")
-
-  for config in "${CONFIGS[@]}"; do
-    if [ -d "$config" ]; then
-      echo "→ Stowing $config"
-      stow "$config"
-    else
-      echo "⚠️  Skipping $config (not found)"
-    fi
-  done
+install_neovim() {
+    echo "Installing Neovim..."
+    [ -d "/opt/nvim-linux-x86_64" ] && sudo rm -rf /opt/nvim-linux-x86_64
+    curl -L "$NVIM_URL" | sudo tar -xz -C /opt
+    echo "Neovim installed to /opt/nvim-linux-x86_64"
 }
 
-# 🐚 Set Zsh as default shell
+install_lazygit() {
+    echo "Installing LazyGit from COPR..."
+    sudo dnf copr enable atim/lazygit -y
+    sudo dnf install -y lazygit
+}
+
+install_tmux() {
+    echo "Installing tmux..."
+    sudo dnf install -y tmux
+}
+
+install_nerd_font() {
+    echo "Installing RobotoMono Nerd Font..."
+    FONT_DIR="$HOME/.local/share/fonts"
+    mkdir -p "$FONT_DIR"
+    TMP_DIR=$(mktemp -d)
+    curl -L "$FONT_URL" -o "$TMP_DIR/font.zip"
+    unzip -q "$TMP_DIR/font.zip" -d "$TMP_DIR"
+    cp "$TMP_DIR"/*.ttf "$FONT_DIR/"
+    rm -rf "$TMP_DIR"
+    fc-cache -f
+    echo "Font installed to $FONT_DIR"
+}
+
+install_node() {
+    echo "Installing Node.js via nvm..."
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+    nvm install --lts
+}
+
+stow_package() {
+    echo "Stowing $1..."
+    cd "$DOTFILES_DIR"
+    stow "$1"
+}
+
+stow_menu() {
+    while true; do
+        echo ""
+        echo "Select package to stow:"
+        echo "  1) zsh"
+        echo "  2) neovim"
+        echo "  3) kitty"
+        echo "  4) tmux"
+        echo "  5) All"
+        echo "  0) Back"
+        read -r -p "> " choice
+        case $choice in
+            1) stow_package zsh ;;
+            2) stow_package neovim ;;
+            3) stow_package kitty ;;
+            4) stow_package tmux ;;
+            5) stow_package zsh; stow_package neovim; stow_package kitty; stow_package tmux ;;
+            0) return ;;
+        esac
+    done
+}
+
 set_zsh_default() {
-  if [ "$SHELL" != "$(which zsh)" ]; then
-    echo "⚙️  Setting Zsh as default shell..."
+    echo "Setting Zsh as default shell..."
     chsh -s "$(which zsh)"
-    echo "✅ Zsh is now your default shell (restart terminal to apply)."
-  else
-    echo "✅ Zsh is already your default shell."
-  fi
 }
 
-# 🧩 Run everything
-install_stow
-stow_configs
-set_zsh_default
+install_everything() {
+    install_core_deps
+    install_neovim
+    install_lazygit
+    install_tmux
+    install_nerd_font
+    stow_package zsh
+    stow_package neovim
+    stow_package kitty
+    stow_package tmux
+    set_zsh_default
+    echo "Done! Restart your terminal."
+}
 
-echo "🎉 All done!"
+main_menu() {
+    while true; do
+        echo ""
+        echo "Dotfiles Installer (Fedora)"
+        echo "  1) Install everything"
+        echo "  2) Install core deps (git, stow, zsh, fzf, zoxide...)"
+        echo "  3) Install Neovim"
+        echo "  4) Install LazyGit"
+        echo "  5) Install tmux"
+        echo "  6) Install RobotoMono Nerd Font"
+        echo "  7) Install Node.js (nvm)"
+        echo "  8) Stow configs..."
+        echo "  9) Set Zsh as default"
+        echo "  0) Exit"
+        read -r -p "> " choice
+        case $choice in
+            1) install_everything ;;
+            2) install_core_deps ;;
+            3) install_neovim ;;
+            4) install_lazygit ;;
+            5) install_tmux ;;
+            6) install_nerd_font ;;
+            7) install_node ;;
+            8) stow_menu ;;
+            9) set_zsh_default ;;
+            0) exit 0 ;;
+        esac
+    done
+}
+
+main_menu

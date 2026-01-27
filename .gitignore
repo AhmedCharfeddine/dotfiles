@@ -1,2 +1,11 @@
 tmux/.config/tmux/plugins
 teams-for-linux
+
+# Hyprland - illogical-impulse manages base configs, only track custom/
+hyprland/.config/hypr/hyprland.conf
+hyprland/.config/hypr/hyprland/
+hyprland/.config/hypr/hypridle.conf
+hyprland/.config/hypr/hyprlock.conf
+hyprland/.config/hypr/hyprlock/
+hyprland/.config/hypr/monitors.conf
+hyprland/.config/hypr/workspaces.conf
