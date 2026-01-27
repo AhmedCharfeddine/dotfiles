@@ -1,1 +1,0 @@
-/home/ahmed/Neovim-theme-switcher/theme.lua

@@ -93,7 +93,11 @@ return {
       })
     end, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-    vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+    vim.keymap.set('n', '<leader>sw', function()
+      builtin.grep_string(require('telescope.themes').get_ivy {
+        previewer = true,
+      })
+    end, { desc = '[S]earch current [W]ord' })
 
     vim.keymap.set('n', '<leader>sg', function()
       builtin.live_grep(require('telescope.themes').get_ivy {})
