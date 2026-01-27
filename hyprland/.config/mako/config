@@ -1,8 +1,0 @@
-include=~/.local/share/omarchy/default/mako/core.ini
-
-text-color=#D0C7BB
-border-color=#D0C7BB
-background-color=#0D0C0A
-border-radius=10
-
-font=Caskaydia Mono Nerd Font

@@ -2,44 +2,32 @@
 
 set -e  # Exit on any error
 
-# 🔍 Check and install GNU Stow if needed
 install_stow() {
-  if ! command -v stow &>/dev/null; then
-    echo "📦 Installing GNU Stow..."
-    # Install via common package managers
-    if [[ "$OSTYPE" == "linux-gnu" ]]; then
-      if command -v apt >/dev/null 2>&1; then
-        sudo apt update && sudo apt install -y stow
-      elif command -v pacman >/dev/null 2>&1; then
-        sudo pacman -S --noconfirm stow
-      elif command -v dnf >/dev/null 2>&1; then
-        sudo dnf install -y stow
-      elif command -v zypper >/dev/null 2>&1; then
-        sudo zypper install -y stow
-      else
-        echo "❌ No supported Linux package manager found. Falling back to manual install..."
-      fi
-    elif [[ "$OSTYPE_DETECTED" == "darwin" ]]; then
-      if command -v brew >/dev/null 2>&1; then
-        brew install stow
-      else
-        echo "❌ Homebrew not found. Install Homebrew or install stow manually."
-        exit 1
-      fi
+  echo "📦 Installing GNU Stow & zsh..."
+  # Install via common package managers
+  if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    if command -v apt >/dev/null 2>&1; then
+      sudo apt update && sudo apt install -y stow zsh
+    elif command -v pacman >/dev/null 2>&1; then
+      sudo pacman -S --noconfirm stow zsh
+    elif command -v dnf >/dev/null 2>&1; then
+      sudo dnf install -y stow zsh
+    elif command -v zypper >/dev/null 2>&1; then
+      sudo zypper install -y stow zsh
     else
-      echo "❌ Unsupported OS: $OSTYPE_DETECTED"
-      exit 1
+      echo "❌ No supported Linux package manager found. Falling back to manual install..."
     fi
-
-    # Final check
-    if command -v stow >/dev/null 2>&1; then
-      echo "✅ stow installed successfully"
+  elif [[ "$OSTYPE_DETECTED" == "darwin" ]]; then
+    if command -v brew >/dev/null 2>&1; then
+      brew install stow
+      brew install zsh
     else
-      echo "❌ stow installation failed. Please install it manually."
+      echo "❌ Homebrew not found. Install Homebrew or install stow manually."
       exit 1
     fi
   else
-    echo "✅ stow is already installed."
+    echo "❌ Unsupported OS: $OSTYPE_DETECTED"
+    exit 1
   fi
 }
 

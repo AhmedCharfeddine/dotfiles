@@ -26,10 +26,6 @@ then
   bash scripts/install-tmux.sh
 fi
 
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#   exec tmux
-# fi
-
 # Set emacs mode. Needed for tmux prefix
 
 # Download Zinit, if it's not there yet
