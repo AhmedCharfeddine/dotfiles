@@ -3,7 +3,6 @@
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/RobotoMono.zip"
-NVIM_URL="https://github.com/neovim/neovim/releases/download/v0.10.3/nvim-linux-x86_64.tar.gz"
 
 install_core_deps() {
     echo "Installing core dependencies..."
@@ -12,8 +11,11 @@ install_core_deps() {
 
 install_neovim() {
     echo "Installing Neovim..."
-    [ -d "/opt/nvim-linux-x86_64" ] && sudo rm -rf /opt/nvim-linux-x86_64
-    curl -L "$NVIM_URL" | sudo tar -xz -C /opt
+    TMP_DIR=$(mktemp -d)
+    curl -LO --output-dir "$TMP_DIR" https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+    sudo rm -rf /opt/nvim-linux-x86_64
+    sudo tar -C /opt -xzf "$TMP_DIR/nvim-linux-x86_64.tar.gz"
+    rm -rf "$TMP_DIR"
     echo "Neovim installed to /opt/nvim-linux-x86_64"
 }
 
