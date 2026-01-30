@@ -492,7 +492,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        jdtls = {}, -- Java
+        -- jdtls = {}, -- Java
         -- groovyls = {}, -- Groovy (less maintained, but usable)
         pyright = {}, -- Python
         -- tsserver = {}, -- TypeScript & JavaScript
@@ -542,7 +542,6 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         -- 'npm-groovy-lint',
-        'sleek',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -816,7 +815,7 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    main = 'nvim-treesitter.config', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       ensure_installed = {

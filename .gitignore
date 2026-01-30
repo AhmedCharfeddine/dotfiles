@@ -1,6 +1,9 @@
 tmux/.config/tmux/plugins
 teams-for-linux
 
+# zsh completion cache
+zsh/.config/zsh/.zcompdump
+
 # Hyprland - illogical-impulse manages base configs, only track custom/
 hyprland/.config/hypr/hyprland.conf
 hyprland/.config/hypr/hyprland/
@@ -9,3 +12,6 @@ hyprland/.config/hypr/hyprlock.conf
 hyprland/.config/hypr/hyprlock/
 hyprland/.config/hypr/monitors.conf
 hyprland/.config/hypr/workspaces.conf
+
+# Auto-generated script
+hyprland/.config/hypr/custom/scripts/__restore_video_wallpaper.sh
