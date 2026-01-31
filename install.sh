@@ -6,7 +6,7 @@ FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Robot
 
 install_core_deps() {
     echo "Installing core dependencies..."
-    sudo dnf install -y git stow zsh fzf zoxide fd-find ripgrep curl tar unzip
+    sudo dnf install -y git make git stow zsh fzf zoxide fd-find ripgrep curl tar unzip
 }
 
 install_neovim() {
