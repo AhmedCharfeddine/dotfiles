@@ -11,6 +11,9 @@ export EDITOR=nvim
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
+# ENV Variables
+export OLLAMA_CONTEXT_LENGTH=64000
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -67,9 +70,9 @@ setopt interactive_comments
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-bindkey '^[w' kill-region
-bindkey '^[[1;5C' forward-word
-bindkey '^[[1;5D' backward-word
+bindkey '^[w' kill-region             # ESC + W
+bindkey '^[[1;5C' forward-word        # CTRL + RIGHT
+bindkey '^[[1;5D' backward-word       # CTRL + LEFT
 
 # Add in snippets
 zinit snippet OMZP::command-not-found
@@ -85,8 +88,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
-alias ls='ls --color'
-alias ll='ls -la'
+alias ls='eza --icons --color'
+alias ll='eza --icons -la'
 alias ws='webshop'
 
 # Shell integrations
@@ -103,3 +106,6 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# opencode
+export PATH=/home/ahmed/.opencode/bin:$PATH
