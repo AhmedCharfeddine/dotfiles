@@ -22,6 +22,7 @@ cd dotfiles
 ## Optional Dependencies
 
 - **Node.js 20+** - For Python LSP support in Neovim and Copilot
+- **[gum](https://github.com/charmbracelet/gum)** - For custom scripts
 
 ## Manual Steps
 
