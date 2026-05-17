@@ -12,6 +12,8 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:${HOME}/go/bin"
+export BUN_INSTALL="$HOME/.bun" 
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 # ENV Variables
 export OLLAMA_CONTEXT_LENGTH=64000
@@ -111,3 +113,11 @@ export NVM_DIR="$HOME/.nvm"
 
 # opencode
 export PATH=/home/ahmed/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/ahmed/.bun/_bun" ] && source "/home/ahmed/.bun/_bun"
+
+. "$HOME/.cargo/env"
+
+# Ctrl+G - fzf directory into tmux session
+bindkey -s '^G' 'tmux-sessionizer\n'

@@ -65,7 +65,8 @@ stow_menu() {
         echo "  2) neovim"
         echo "  3) kitty"
         echo "  4) tmux"
-        echo "  5) All"
+        echo "  5) scripts"
+        echo "  6) All"
         echo "  0) Back"
         read -r -p "> " choice
         case $choice in
@@ -73,7 +74,8 @@ stow_menu() {
             2) stow_package neovim ;;
             3) stow_package kitty ;;
             4) stow_package tmux ;;
-            5) stow_package zsh; stow_package neovim; stow_package kitty; stow_package tmux ;;
+            5) stow_package scripts ;;
+            6) stow_package zsh; stow_package neovim; stow_package kitty; stow_package tmux; stow_package scripts; stow_package opencode ;;
             0) return ;;
         esac
     done

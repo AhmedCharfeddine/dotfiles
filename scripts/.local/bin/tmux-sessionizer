@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+if ! command -v tmux &>/dev/null; then
+    echo "tmux is not installed. Please install it first."
+    exit 1
+fi
+
+if ! command -v fzf &>/dev/null; then
+    echo "fzf is not installed. Please install it first."
+    exit 1
+fi
+
+if ! command -v zoxide &>/dev/null; then
+    echo "zoxide is not installed. Please install it first."
+    exit 1
+fi
+
+selected=$(zoxide query -l | fzf -d --height=50% --reverse)
+
+if [[ -z "$selected" ]]; then
+    exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+
+switch_to() {
+    if [[ -z $TMUX ]]; then
+        tmux attach-session -t "$1"
+    else
+        tmux switch-client -t "$1"
+    fi
+}
+
+has_session() {
+    tmux list-sessions 2>/dev/null | grep -q "^$1:"
+}
+
+is_tmux_running() {
+    tmux_running=$(pgrep tmux)
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+        return 1
+    fi
+    return 0
+}
+
+if ! is_tmux_running; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+if ! has_session "$selected_name"; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+switch_to "$selected_name"
