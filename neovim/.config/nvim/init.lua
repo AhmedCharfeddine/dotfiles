@@ -92,6 +92,24 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.keymap.set({ 'n', 'v', 'i', 't' }, '<C-g>', function()
+  vim.schedule(function()
+    vim.cmd 'terminal tmux-sessionizer'
+    local buf = vim.api.nvim_get_current_buf()
+    vim.cmd 'startinsert'
+    vim.api.nvim_create_autocmd('TermClose', {
+      buffer = buf,
+      once = true,
+      callback = function()
+        if vim.api.nvim_buf_is_valid(buf) then
+          vim.cmd 'bprevious'
+          vim.api.nvim_buf_delete(buf, { force = true })
+        end
+      end,
+    })
+  end)
+end, { desc = 'Tmux Sessionizer' })
+
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
